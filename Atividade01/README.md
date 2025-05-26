@@ -1,26 +1,26 @@
-# Segurança em Aplicações Web: SQL Injection e Força Bruta
+# Demonstrativo de Vulnerabilidades e Proteções em PHP
 
-Este projeto demonstra exemplos de código PHP vulnerável e seguro quanto a ataques de **SQL Injection** e **força bruta**.
+Este repositório apresenta dois exemplos simples em PHP com foco na segurança de aplicações web, abordando ataques comuns como **SQL Injection** e **força bruta em login**.
 
-## 📂 Arquivos
+## 📘 Descrição dos Arquivos
 
-- `inseguro.php`: Código vulnerável que não protege contra SQL Injection nem contra múltiplas tentativas de login.
-- `seguro.php`: Código com melhorias de segurança:
-  - Uso de `PDO` com *prepared statements* para evitar SQL Injection.
-  - Controle de tentativas de login via `$_SESSION` para mitigar ataques de força bruta.
-  - Uso de `password_verify()` para comparar senhas com segurança.
+- `inseguro.php`: Script sem medidas de segurança, suscetível a manipulação de consultas SQL e tentativas ilimitadas de acesso.
+- `seguro.php`: Código aprimorado com práticas recomendadas de segurança:
+  - Implementação de consultas preparadas com `PDO`.
+  - Controle de acesso baseado em contagem de tentativas armazenadas na sessão.
+  - Validação de senha utilizando `password_verify()`.
 
-## 🚨 Tipos de ataques prevenidos
+## 🔍 Comparativo de Segurança
 
-| Tipo de ataque   | Prevenção                                     |
-|------------------|-----------------------------------------------|
-| SQL Injection    | Uso de `prepare()` e `bindParam()` do PDO     |
-| Força bruta      | Limite de tentativas usando sessão PHP        |
-| Senha em texto plano | Uso de `password_hash()` e `password_verify()` |
+| Risco de Segurança       | Solução Adotada                                |
+|--------------------------|------------------------------------------------|
+| Injeção de comandos SQL  | Uso de `prepare()` e `bindParam()`             |
+| Login automatizado       | Limitação por sessão (`$_SESSION`)             |
+| Senhas não protegidas    | Hash com `password_hash()` e verificação segura |
 
-## 💡 Observações
+## ✅ Recomendações
 
-Para armazenar senhas com segurança no banco de dados:
+Para proteger as senhas dos usuários, utilize sempre hashing seguro:
 
 ```php
-$senha_hash = password_hash($senha, PASSWORD_DEFAULT);
+$hash = password_hash($senha, PASSWORD_DEFAULT);
